@@ -104,7 +104,6 @@ __strong static YQNavigationController *present = nil;
     
     if(self=[super init]){
         
-        LOG;
         self.viewControllers = [NSMutableArray array];
         _size = size;
         
@@ -165,7 +164,6 @@ __strong static YQNavigationController *present = nil;
     self.containerBackgroundView.center = self.view.center;
     [self.view addSubview:self.containerBackgroundView];
     
-    LOG;
     if(self.rootViewController){
        
         [self addChildViewController:self.rootViewController];

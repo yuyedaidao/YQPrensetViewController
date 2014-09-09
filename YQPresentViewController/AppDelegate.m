@@ -7,12 +7,22 @@
 //
 
 #import "AppDelegate.h"
+#import <Fingertips/MBFingerTipWindow.h>
+#import "ViewController.h"
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+
+    ViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    self.window = [[MBFingerTipWindow alloc] initWithFrame:frame];
+    self.window.rootViewController = vc;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 							

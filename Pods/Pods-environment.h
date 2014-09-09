@@ -6,6 +6,12 @@
 // project.
 
 
+// Fingertips
+#define COCOAPODS_POD_AVAILABLE_Fingertips
+#define COCOAPODS_VERSION_MAJOR_Fingertips 0
+#define COCOAPODS_VERSION_MINOR_Fingertips 3
+#define COCOAPODS_VERSION_PATCH_Fingertips 0
+
 // pop
 #define COCOAPODS_POD_AVAILABLE_pop
 #define COCOAPODS_VERSION_MAJOR_pop 1

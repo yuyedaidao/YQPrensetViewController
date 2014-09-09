@@ -1,10 +1,13 @@
 PODS:
+  - Fingertips (0.3.0)
   - pop (1.0.6)
 
 DEPENDENCIES:
+  - Fingertips
   - pop (~> 1.0.6)
 
 SPEC CHECKSUMS:
+  Fingertips: 09d223a390349b317a51d4c941d778bdb661c4e1
   pop: e518794da38942c05255eb64b36d894e70cb4f00
 
 COCOAPODS: 0.33.1

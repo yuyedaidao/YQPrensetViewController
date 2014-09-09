@@ -12,6 +12,8 @@
 #import "SecondViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *show;
+- (IBAction)showPresentView:(id)sender;
 
 @end
 
@@ -25,18 +27,6 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    UIViewController *vc = [[UIViewController alloc] init];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//    [self.view addSubview:nav.view];
-//    nav.view.frame = CGRectMake(0, 0, 100, 100);
-//    vc.view.backgroundColor = [UIColor greenColor];
-//    [self.view addSubview:[YQPresentViewController shareInstance].view];
-    YQNavigationController *nav = [[YQNavigationController alloc] initWithSize:CGSizeMake(250, 300) rootViewController:nil];
-    RootViewController *root = [[RootViewController alloc] init];
-    nav.rootViewController = root;    
-    root.title = @"root";
-    [nav show:YES animated:YES];
-    
     
 }
 
@@ -46,4 +36,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)showPresentView:(id)sender {
+    YQNavigationController *nav = [[YQNavigationController alloc] initWithSize:CGSizeMake(250, 300) rootViewController:nil];
+    RootViewController *root = [[RootViewController alloc] init];
+    nav.rootViewController = root;
+    root.title = @"root";
+    [nav show:YES animated:YES];
+}
 @end
