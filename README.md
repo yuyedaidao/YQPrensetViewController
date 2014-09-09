@@ -29,4 +29,4 @@ YQPrensetViewController
   *导航栏左标题如果不设置自动显示上一层视图控制器标题，初始时显示“取消”*
   
 ### 如图
-![gif]()
+![gif](https://github.com/yuyedaidao/YQPrensetViewController/blob/master/present.gif)
