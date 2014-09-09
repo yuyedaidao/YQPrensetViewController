@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CDB6F37F-B47D-4928-8E29-619DA202E246</string>
+	<key>IDESourceControlProjectName</key>
+	<string>YQPresentViewController</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AD8A2885-7793-478D-9088-F4939729ECD5</key>
+		<string>ssh://git.oschina.net/padding/YQPresentView.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>YQPresentViewController.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AD8A2885-7793-478D-9088-F4939729ECD5</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://git.oschina.net/padding/YQPresentView.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AD8A2885-7793-478D-9088-F4939729ECD5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AD8A2885-7793-478D-9088-F4939729ECD5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>YQPresentViewController</string>
+		</dict>
+	</array>
+</dict>
+</plist>
