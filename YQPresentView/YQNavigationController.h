@@ -15,9 +15,8 @@
 @interface YQNavigationController : UIViewController
 +(instancetype)shareInstance;
 -(id)initWithSize:(CGSize)size rootViewController:(YQViewController *)viewController;
-//+(instancetype)createInstanceWithSize:(CGSize)size rootViewController:(YQViewController *)viewController;
 @property (strong,nonatomic) YQViewController *rootViewController;
-
+@property (assign,nonatomic) BOOL panPopView;
 @property (assign,nonatomic) BOOL touchSpaceHide;
 @property (assign,nonatomic) CGSize size;
 -(void)show:(BOOL)isShow animated:(BOOL)animated;

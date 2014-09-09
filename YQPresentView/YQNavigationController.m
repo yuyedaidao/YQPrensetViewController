@@ -133,13 +133,12 @@ __strong static YQNavigationController *present = nil;
     }
 }
 -(void)panHandle:(UIPanGestureRecognizer *)gesture{
-    if(self.viewControllers.count>1){
+    if(self.panPopView && self.viewControllers.count>1){
         
         CGPoint loc = [gesture locationInView:self.containerView];
         CGPoint loc2 = [gesture locationInView:gesture.view];
         CGPoint tran = [gesture translationInView:self.containerView];
-//        NSLog(@"loc %@",NSStringFromCGPoint(loc));
-//        NSLog(@"tran %@",NSStringFromCGPoint(tran));
+
         CGFloat flag = loc.x-loc2.x;
         if(gesture.state == UIGestureRecognizerStateBegan){
             if(flag>=0){
