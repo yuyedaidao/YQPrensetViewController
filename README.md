@@ -9,6 +9,8 @@ YQPrensetViewController
 #### 显示
 
       YQNavigationController *nav = [[YQNavigationController alloc] initWithSize:CGSizeMake(250, 300) rootViewController:nil];
+      nav.touchSpaceHide = YES;//点击没有内容的地方消失
+      nav.panPopView = YES;//滑动返回上一层视图
       RootViewController *root = [[RootViewController alloc] init];
       nav.rootViewController = root;
       root.title = @"root";
