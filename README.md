@@ -1,6 +1,7 @@
-<<<<<<< HEAD
-#YQPresentView
-=======
+
 YQPrensetViewController
 =======================
->>>>>>> 7957d985b179cd1b4f690b395bebf8bdfc0d87cc
+
+##带导航的弹出视图控制器
+
+###使用说明
