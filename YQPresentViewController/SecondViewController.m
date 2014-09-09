@@ -36,7 +36,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     LOG;
-    __weak SecondViewController *my = self;
+    __weak typeof(self) my = self;
     [self.navigationBar setLeftBlock:^{
         [my.yqNavigationController popYQViewControllerAnimated:YES];
     }];
