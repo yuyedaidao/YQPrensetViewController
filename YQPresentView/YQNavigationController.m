@@ -18,6 +18,9 @@
 @property (strong,nonatomic) UIView *containerBackgroundView;
 @property (strong,nonatomic) UIView *grayBackgroundView;
 @property (strong,nonatomic) NSMutableArray *viewControllers;
+@property (assign,nonatomic) BOOL animating;
+@property (strong,nonatomic) YQViewController *tempCurrentVC;
+@property (strong,nonatomic) YQViewController *tempToVC;
 //@property (strong,nonatomic) NSMutableArray *navigationBars;
 
 @end
@@ -25,14 +28,7 @@
 __strong static YQNavigationController *present = nil;
 
 @implementation YQNavigationController
-//+(instancetype)createInstanceWithSize:(CGSize)size rootViewController:(YQViewController *)viewController{
-//    static dispatch_once_t onceToken;
-//    __strong static YQNavigationController *present = nil;
-//    dispatch_once(&onceToken, ^{
-//        _present = present = [[YQNavigationController alloc] initWithSize:size rootViewController:viewController];
-//    });
-//    return present;
-//}
+
 +(instancetype)shareInstance{
    
     return present;
@@ -74,10 +70,12 @@ __strong static YQNavigationController *present = nil;
             } completion:^(BOOL finished) {
                 [self clear];
                 [self.view removeFromSuperview];
+                present = nil;
             }];
         }else{
             [self clear];
             [self.view removeFromSuperview];
+            present = nil;
         }
     }
 }
@@ -124,7 +122,6 @@ __strong static YQNavigationController *present = nil;
             [self.viewControllers addObject:self.rootViewController];
         }
         
-       
         
         present = self;
     }
@@ -134,6 +131,59 @@ __strong static YQNavigationController *present = nil;
     if(self.touchSpaceHide){
         [self show:NO animated:YES];
     }
+}
+-(void)panHandle:(UIPanGestureRecognizer *)gesture{
+    if(self.viewControllers.count>1){
+        
+        CGPoint loc = [gesture locationInView:self.containerView];
+        CGPoint loc2 = [gesture locationInView:gesture.view];
+        CGPoint tran = [gesture translationInView:self.containerView];
+//        NSLog(@"loc %@",NSStringFromCGPoint(loc));
+//        NSLog(@"tran %@",NSStringFromCGPoint(tran));
+        CGFloat flag = loc.x-loc2.x;
+        if(gesture.state == UIGestureRecognizerStateBegan){
+            if(flag>=0){
+                self.tempCurrentVC = self.viewControllers.lastObject;
+                self.tempToVC = self.viewControllers[self.viewControllers.count-2];
+                
+                [self.tempCurrentVC willMoveToParentViewController:nil];
+                [self addChildViewController:self.tempToVC];
+                [self.containerView addSubview:self.tempToVC.view];
+                [self.containerView sendSubviewToBack:self.tempToVC.view];
+                self.tempToVC.view.center = CGPointMake(0, self.tempToVC.view.center.y);
+                self.tempToVC.view.hidden = NO;
+                self.tempToVC.view.center = CGPointMake(self.tempToVC.view.center.x+tran.x*0.5, self.tempToVC.view.center.y);
+                self.tempCurrentVC.view.center = CGPointMake(self.tempCurrentVC.view.center.x+tran.x, self.tempCurrentVC.view.center.y);
+                
+                self.tempToVC.navigationBar.title = self.tempToVC.title;
+                self.tempToVC.navigationBar.hidden = NO;
+            }
+            
+        }else if(gesture.state == UIGestureRecognizerStateChanged){
+            if(flag>0 && flag<self.size.width){
+                self.tempToVC.view.center = CGPointMake(self.tempToVC.view.center.x+tran.x*0.5, self.tempToVC.view.center.y);
+                self.tempCurrentVC.view.center = CGPointMake(self.tempCurrentVC.view.center.x+tran.x, self.tempCurrentVC.view.center.y);
+                
+            }
+        }else{
+            if(self.tempCurrentVC.view.center.x>=self.size.width){
+                //过了一半完成pop
+                self.tempToVC.view.center = CGPointMake(self.size.width/2, self.tempToVC.view.center.y);
+                self.tempCurrentVC.view.frame = CGRectMake(self.size.width, 0, self.size.width, self.containerView.bounds.size.height);
+            }else{
+                [UIView animateWithDuration:0.3 animations:^{
+                    //tempToVC的中心无所谓
+                    self.tempCurrentVC.view.center = self.tempToVC.view.center;
+                    [self.tempToVC.view removeFromSuperview];
+                    
+                }];
+            }
+        }
+        
+        [gesture setTranslation:CGPointZero inView:self.containerView];
+        
+    }
+    
 }
 -(void)setSize:(CGSize)size{
 
@@ -160,6 +210,7 @@ __strong static YQNavigationController *present = nil;
     //点击空白消失手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle)];
     [backgroundView addGestureRecognizer:tap];
+    
 
     self.containerBackgroundView.center = self.view.center;
     [self.view addSubview:self.containerBackgroundView];
@@ -205,7 +256,13 @@ __strong static YQNavigationController *present = nil;
         toNavigationBar.leftTitle = currentNavigationBar.title;
         [self.containerBackgroundView addSubview:toNavigationBar];
         
+        //添加滑动手势
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandle:)];
+        [viewController.view addGestureRecognizer:pan];
+        viewController.view.userInteractionEnabled = YES;
+        
         if(animated){
+            self.animating = YES;
             toNavigationBar.alpha = 0.0f;
             viewController.view.frame = CGRectMake(self.size.width, 0, self.size.width, self.containerView.bounds.size.height);
             [self transitionFromViewController:currentViewController toViewController:viewController duration:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -220,6 +277,7 @@ __strong static YQNavigationController *present = nil;
                     currentNavigationBar.alpha = 1.0f;
                     [viewController didMoveToParentViewController:self];
                     [currentViewController removeFromParentViewController];
+                    self.animating = NO;
                 }
             }];
 
@@ -253,6 +311,8 @@ __strong static YQNavigationController *present = nil;
         
         
         if(animated){
+            
+            self.animating = YES;
             toNavigationBar.alpha = 0.0f;
             toViewController.view.frame = CGRectMake(-self.size.width/2, 0, self.size.width, self.containerView.bounds.size.height);
             [self transitionFromViewController:currentViewController toViewController:toViewController duration:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -271,6 +331,7 @@ __strong static YQNavigationController *present = nil;
                     [currentViewController removeFromParentViewController];
                     [toViewController didMoveToParentViewController:self];
                     [self.viewControllers removeLastObject];
+                    self.animating = NO;
                 }
             }];
         }else{
