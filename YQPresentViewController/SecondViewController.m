@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    LOG;
+ 
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor orangeColor];
     self.title = @"second";
@@ -35,7 +35,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    LOG;
+
     __weak typeof(self) my = self;
     [self.navigationBar setLeftBlock:^{
         [my.yqNavigationController popYQViewControllerAnimated:YES];
@@ -49,15 +49,15 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    LOG;
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    LOG;
+ 
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    LOG;
+
 }
 - (void)didReceiveMemoryWarning
 {

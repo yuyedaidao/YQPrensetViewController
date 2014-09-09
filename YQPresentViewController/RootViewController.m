@@ -33,7 +33,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    LOG;
+
     self.navigationBar.rightTitle = @"second";
     __weak RootViewController *my = self;
     [self.navigationBar setRightBlock:^{
@@ -43,15 +43,15 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    LOG;
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    LOG;
+
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    LOG;
+
 }
 - (void)didReceiveMemoryWarning
 {

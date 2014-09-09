@@ -15,4 +15,4 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#define LOG NSLog(@"%@_%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd))
+//#define LOG NSLog(@"%@_%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd))
