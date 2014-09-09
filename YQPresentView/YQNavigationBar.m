@@ -22,7 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        LOG;
+ 
         UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
         self.leftItem = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStyleBordered target:self action:@selector(leftClick)];
         self.rightItem = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStyleBordered target:self action:@selector(rightClick)];

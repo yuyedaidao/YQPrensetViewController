@@ -136,7 +136,7 @@ __strong static YQNavigationController *present = nil;
     }
 }
 -(void)setSize:(CGSize)size{
-    LOG;
+
     _size = size;
     if(self.containerBackgroundView){
         CGPoint point = self.containerBackgroundView.center;
