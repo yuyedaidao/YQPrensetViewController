@@ -146,8 +146,7 @@ __strong static YQNavigationController *present = nil;
                 self.tempCurrentVC = self.viewControllers.lastObject;
                 self.tempToVC = self.viewControllers[self.viewControllers.count-2];
                 
-                [self.tempCurrentVC willMoveToParentViewController:nil];
-                [self addChildViewController:self.tempToVC];
+               
                 [self.containerView addSubview:self.tempToVC.view];
                 [self.containerView sendSubviewToBack:self.tempToVC.view];
                 self.tempToVC.view.center = CGPointMake(0, self.tempToVC.view.center.y);
@@ -163,19 +162,33 @@ __strong static YQNavigationController *present = nil;
             if(flag>0 && flag<self.size.width){
                 self.tempToVC.view.center = CGPointMake(self.tempToVC.view.center.x+tran.x*0.5, self.tempToVC.view.center.y);
                 self.tempCurrentVC.view.center = CGPointMake(self.tempCurrentVC.view.center.x+tran.x, self.tempCurrentVC.view.center.y);
-                
             }
         }else{
             if(self.tempCurrentVC.view.center.x>=self.size.width){
                 //过了一半完成pop
-                self.tempToVC.view.center = CGPointMake(self.size.width/2, self.tempToVC.view.center.y);
-                self.tempCurrentVC.view.frame = CGRectMake(self.size.width, 0, self.size.width, self.containerView.bounds.size.height);
+                [self.tempCurrentVC willMoveToParentViewController:nil];
+                [self addChildViewController:self.tempToVC];
+                CGFloat duration = (self.size.width-self.tempCurrentVC.view.frame.origin.x)/self.size.width*0.3;
+                [UIView animateWithDuration:duration animations:^{
+                    self.tempToVC.view.center = CGPointMake(self.size.width/2, self.tempToVC.view.center.y);
+                    self.tempCurrentVC.view.frame = CGRectMake(self.size.width, 0, self.size.width, self.containerView.bounds.size.height);
+                } completion:^(BOOL finished) {
+                    self.tempCurrentVC.navigationBar.hidden = YES;
+                    //                currentNavigationBar.alpha = 1.0f;
+                    [self.tempCurrentVC.navigationBar clear];
+                    [self.tempCurrentVC.navigationBar removeFromSuperview];
+                    [self.tempCurrentVC removeFromParentViewController];
+                    [self.tempToVC didMoveToParentViewController:self];
+                    [self.viewControllers removeLastObject];
+                }];
+                
             }else{
-                [UIView animateWithDuration:0.3 animations:^{
+                CGFloat duration = self.tempCurrentVC.view.frame.origin.x/self.size.width*0.3;
+                [UIView animateWithDuration:duration animations:^{
                     //tempToVC的中心无所谓
-                    self.tempCurrentVC.view.center = self.tempToVC.view.center;
+                    self.tempCurrentVC.view.center = CGPointMake(self.size.width/2, self.tempCurrentVC.view.center.y);
+                } completion:^(BOOL finished) {
                     [self.tempToVC.view removeFromSuperview];
-                    
                 }];
             }
         }
