@@ -15,6 +15,7 @@ YQPrensetViewController
       [nav show:YES animated:YES];
       
 #### push&pod
+
      __weak typeof(self) my = self;
     [self.navigationBar setLeftBlock:^{
         [my.yqNavigationController popYQViewControllerAnimated:YES];
@@ -25,6 +26,9 @@ YQPrensetViewController
         OtherViewController *other = [[OtherViewController alloc] init];
         [my.yqNavigationController pushYQViewController:other animated:YES];
     }];
+    
+    
+  *要推出的新视图只要继承YQViewController就可以了*
   
   *导航栏左标题如果不设置自动显示上一层视图控制器标题，初始时显示“取消”*
   
