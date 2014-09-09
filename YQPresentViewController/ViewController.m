@@ -38,6 +38,8 @@
 
 - (IBAction)showPresentView:(id)sender {
     YQNavigationController *nav = [[YQNavigationController alloc] initWithSize:CGSizeMake(250, 300) rootViewController:nil];
+    nav.touchSpaceHide = YES;
+    nav.panPopView = YES;
     RootViewController *root = [[RootViewController alloc] init];
     nav.rootViewController = root;
     root.title = @"root";
