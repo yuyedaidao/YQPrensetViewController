@@ -192,6 +192,7 @@ __strong static YQNavigationController *present = nil;
                 [UIView animateWithDuration:duration animations:^{
                     //tempToVC的中心无所谓
                     self.tempCurrentVC.navigationBar.alpha = 1.0;
+//                    [self.containerBackgroundView bringSubviewToFront:self.tempCurrentVC.navigationBar];
                     self.tempCurrentVC.view.center = CGPointMake(self.size.width/2, self.tempCurrentVC.view.center.y);
                 } completion:^(BOOL finished) {
                     [self.tempToVC.view removeFromSuperview];
