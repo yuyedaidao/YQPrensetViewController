@@ -155,12 +155,16 @@ __strong static YQNavigationController *present = nil;
                 
                 self.tempToVC.navigationBar.title = self.tempToVC.title;
                 self.tempToVC.navigationBar.hidden = NO;
+                self.tempToVC.navigationBar.alpha = 0;
             }
             
         }else if(gesture.state == UIGestureRecognizerStateChanged){
             if(flag>0 && flag<self.size.width){
                 self.tempToVC.view.center = CGPointMake(self.tempToVC.view.center.x+tran.x*0.5, self.tempToVC.view.center.y);
                 self.tempCurrentVC.view.center = CGPointMake(self.tempCurrentVC.view.center.x+tran.x, self.tempCurrentVC.view.center.y);
+                CGFloat alpha = self.tempCurrentVC.view.frame.origin.x/self.size.width;
+                self.tempToVC.navigationBar.titleAlpha = alpha*1.5;
+                self.tempCurrentVC.navigationBar.titleAlpha = 1.0-alpha*1.5;
             }
         }else{
             if(self.tempCurrentVC.view.center.x>=self.size.width){
@@ -171,9 +175,11 @@ __strong static YQNavigationController *present = nil;
                 [UIView animateWithDuration:duration animations:^{
                     self.tempToVC.view.center = CGPointMake(self.size.width/2, self.tempToVC.view.center.y);
                     self.tempCurrentVC.view.frame = CGRectMake(self.size.width, 0, self.size.width, self.containerView.bounds.size.height);
+                    self.tempCurrentVC.navigationBar.alpha = 0;
+                    self.tempToVC.navigationBar.alpha = 1.0f;
                 } completion:^(BOOL finished) {
                     self.tempCurrentVC.navigationBar.hidden = YES;
-                    //                currentNavigationBar.alpha = 1.0f;
+                    self.tempCurrentVC.navigationBar.alpha = 1.0f;
                     [self.tempCurrentVC.navigationBar clear];
                     [self.tempCurrentVC.navigationBar removeFromSuperview];
                     [self.tempCurrentVC removeFromParentViewController];
@@ -185,6 +191,7 @@ __strong static YQNavigationController *present = nil;
                 CGFloat duration = self.tempCurrentVC.view.frame.origin.x/self.size.width*0.3;
                 [UIView animateWithDuration:duration animations:^{
                     //tempToVC的中心无所谓
+                    self.tempCurrentVC.navigationBar.alpha = 1.0;
                     self.tempCurrentVC.view.center = CGPointMake(self.size.width/2, self.tempCurrentVC.view.center.y);
                 } completion:^(BOOL finished) {
                     [self.tempToVC.view removeFromSuperview];

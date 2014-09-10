@@ -15,5 +15,6 @@
 @property (strong,nonatomic) void (^leftBlock)(void);
 @property (strong,nonatomic) void (^rightBlock)(void);
 @property (strong,nonatomic) NSString *title;
+@property (assign,nonatomic) CGFloat titleAlpha;
 -(void)clear;
 @end

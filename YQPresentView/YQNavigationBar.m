@@ -14,6 +14,8 @@
 @property (nonatomic,strong) UIBarButtonItem *rightItem;
 @property (nonatomic,strong) UIBarButtonItem *titleItem;
 @property (nonatomic,strong) UILabel *titleLabel;
+//@property (nonatomic,strong) UILabel *leftLabel;
+//@property (nonatomic,strong) UILabel *rightLabel;
 @end
 @implementation YQNavigationBar
 
@@ -24,6 +26,7 @@
         // Initialization code
  
         UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+
         self.leftItem = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStyleBordered target:self action:@selector(leftClick)];
         self.rightItem = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStyleBordered target:self action:@selector(rightClick)];
         self.titleItem = [[UIBarButtonItem alloc] initWithTitle:@"        " style:UIBarButtonItemStyleBordered target:nil action:nil];
@@ -36,6 +39,8 @@
         self.titleLabel.textColor = self.tintColor;
         self.titleLabel.text = @"";
         [self addSubview:self.titleLabel];
+        
+        self.translucent = NO;
     
     }
     return self;
@@ -78,6 +83,18 @@
         _rightTitle = rightTitle;
         self.rightItem.title = rightTitle;
     }
+}
+-(void)setTitleAlpha:(CGFloat)titleAlpha{
+    if(titleAlpha<0){
+        self.alpha = 0;
+    }else if(titleAlpha>1){
+        self.alpha = 1.0f;
+    }else{
+        self.alpha = titleAlpha;
+    }
+}
+-(CGFloat)titleAlpha{
+    return self.alpha;
 }
 /*
 // Only override drawRect: if you perform custom drawing.
